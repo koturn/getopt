@@ -49,7 +49,6 @@
 #  define __BEGIN_DECLS
 #  define __END_DECLS
 # endif
-# define __P(args)      args
 #endif
 
 /*#ifndef _WIN32
@@ -89,8 +88,13 @@ struct option {
 };
 
 __BEGIN_DECLS
-GETOPT_API int getopt_long __P((int, char * const *, const char *,
-      const struct option *, int *));
+GETOPT_API int
+getopt_long(
+    int nargc,
+    char *const *nargv,
+    const char *options,
+    const struct option *long_options,
+    int *idx);
 __END_DECLS
 #endif
 
@@ -101,10 +105,14 @@ GETOPT_API extern int   opterr,   /* if error message should be printed */
                         optind,   /* index into parent argv vector */
                         optopt,   /* character checked for validity */
                         optreset; /* reset getopt */
-GETOPT_API extern char* optarg;   /* argument associated with option */
+GETOPT_API extern char *optarg;   /* argument associated with option */
 
 /* Original getopt */
-GETOPT_API int getopt __P((int, char * const *, const char *));
+GETOPT_API int
+getopt(
+    int nargc,
+    char *const *nargv,
+    const char *ostr);
 
 __END_DECLS
 

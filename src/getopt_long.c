@@ -57,7 +57,10 @@
 GETOPT_API extern char opterrmsg[128];
 char opterrmsg[128]; /* last error message is stored here */
 
-static void warnx(int print_error, const char *fmt, ...)
+static void warnx(
+    int print_error,
+    const char *fmt,
+    ...)
 {
   va_list ap;
   va_start(ap, fmt);
@@ -117,9 +120,23 @@ __weak_alias(getopt_long,_getopt_long)
 
 #define EMSG  ""
 
-static int getopt_internal(int, char * const *, const char *);
-static int gcd(int, int);
-static void permute_args(int, int, int, char * const *);
+static int
+getopt_internal(
+    int nargc,
+    char *const *nargv,
+    const char *options);
+
+static int
+gcd(
+    int a,
+    int b);
+
+static void
+permute_args(
+    int panonopt_start,
+    int panonopt_end,
+    int opt_end,
+    char *const *nargv);
 
 static char *place = EMSG; /* option letter processing */
 
@@ -140,9 +157,9 @@ static const char illoptstring[] = "unknown option -- %s";
  * Compute the greatest common divisor of a and b.
  */
 static int
-gcd(a, b)
-  int a;
-  int b;
+gcd(
+    int a,
+    int b)
 {
   int c;
 
@@ -161,11 +178,11 @@ gcd(a, b)
  * in each block).
  */
 static void
-permute_args(panonopt_start, panonopt_end, opt_end, nargv)
-  int panonopt_start;
-  int panonopt_end;
-  int opt_end;
-  char * const *nargv;
+permute_args(
+    int panonopt_start,
+    int panonopt_end,
+    int opt_end,
+    char *const *nargv)
 {
   int cstart, cyclelen, i, j, ncycle, nnonopts, nopts, pos;
   char *swap;
@@ -203,10 +220,10 @@ permute_args(panonopt_start, panonopt_end, opt_end, nargv)
  *   Returns -2 if -- is found (can be long option or end of options marker).
  */
 static int
-getopt_internal(nargc, nargv, options)
-  int nargc;
-  char * const *nargv;
-  const char *options;
+getopt_internal(
+    int nargc,
+    char *const *nargv,
+    const char *options)
 {
   char *oli;  /* option letter list index */
   int optchar;
@@ -360,10 +377,10 @@ start:
  * [eventually this will replace the real getopt]
  */
 int
-getopt(nargc, nargv, options)
-  int nargc;
-  char * const *nargv;
-  const char *options;
+getopt(
+    int nargc,
+    char *const *nargv,
+    const char *options)
 {
   int retval;
 
@@ -393,12 +410,12 @@ getopt(nargc, nargv, options)
  *   Parse argc/argv argument vector.
  */
 int
-getopt_long(nargc, nargv, options, long_options, idx)
-  int nargc;
-  char * const *nargv;
-  const char *options;
-  const struct option *long_options;
-  int *idx;
+getopt_long(
+    int nargc,
+    char *const *nargv,
+    const char *options,
+    const struct option *long_options,
+    int *idx)
 {
   int retval;
 
