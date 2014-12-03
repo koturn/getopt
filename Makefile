@@ -26,7 +26,7 @@ DST_DIR := lib
 SRC_DIR := src
 INC_DIR := include
 
-TARGET  := $(DST_DIR)/getopt.a
+TARGET  := $(DST_DIR)/libgetopt.a
 OBJ1    := $(SRC_DIR)/getopt.o
 OBJ2    := $(SRC_DIR)/getopt_long.o
 SRC1    := $(OBJ:%.o=%.c)
