@@ -43,14 +43,12 @@
 #include "../include/getopt.h"
 
 #ifdef _WIN32
-
 /* Windows needs warnx().  We change the definition though:
  *  1. (another) global is defined, opterrmsg, which holds the error message
  *  2. errors are always printed out on stderr w/o the program name
  * Note that opterrmsg always gets set no matter what opterr is set to.  The
  * error message will not be printed if opterr is 0 as usual.
  */
-
 #include <stdio.h>
 #include <stdarg.h>
 
@@ -75,7 +73,8 @@ static void warnx(
     fprintf(stderr, "\n");
   }
 }
-
+#else
+#include <err.h>
 #endif /*_WIN32*/
 
 /* not part of the original file */
@@ -89,7 +88,7 @@ static void warnx(
 
 #ifdef REPLACE_GETOPT
 #ifdef __weak_alias
-__weak_alias(getopt,_getopt)
+__weak_alias(getopt, _getopt)
 #endif
 int   opterr = 1;    /* if error message should be printed */
 int   optind = 1;    /* index into parent argv vector */
@@ -101,7 +100,7 @@ static int optreset;
 #endif
 
 #ifdef __weak_alias
-__weak_alias(getopt_long,_getopt_long)
+__weak_alias(getopt_long, _getopt_long)
 #endif
 
 #if !HAVE_GETOPT_LONG

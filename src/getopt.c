@@ -63,12 +63,12 @@ getopt(
     optreset = 0;
     if (optind >= nargc || *(place = nargv[optind]) != '-') {
       place = EMSG;
-      return (-1);
+      return -1;
     }
     if (place[1] && *++place == '-') {  /* found "--" */
       ++optind;
       place = EMSG;
-      return (-1);
+      return -1;
     }
   }  /* option letter okay? */
   if ((optopt = (int) *place++) == (int) ':' || !(oli = strchr(ostr, optopt))) {
@@ -77,7 +77,7 @@ getopt(
      * assume it means -1.
      */
     if (optopt == (int) '-') {
-      return (-1);
+      return -1;
     }
     if (!*place) {
       ++optind;
@@ -85,7 +85,7 @@ getopt(
     if (opterr && *ostr != ':' && optopt != BADCH) {
       fprintf(stderr, "%s: illegal option -- %c\n", "progname", optopt);
     }
-    return (BADCH);
+    return BADCH;
   }
   if (*++oli != ':') {  /* don't need argument */
     optarg = NULL;
@@ -98,17 +98,17 @@ getopt(
     } else if (nargc <= ++optind) {  /* no arg */
       place = EMSG;
       if (*ostr == ':') {
-        return (BADARG);
+        return BADARG;
       }
       if (opterr) {
         fprintf(stderr, "%s: option requires an argument -- %c\n", "progname", optopt);
       }
-      return (BADCH);
+      return BADCH;
     } else {  /* white space */
       optarg = nargv[optind];
     }
     place = EMSG;
     ++optind;
   }
-  return (optopt);  /* dump back option letter */
+  return optopt;  /* dump back option letter */
 }
