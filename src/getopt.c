@@ -76,35 +76,37 @@ getopt(
      * if the user didn't specify '-' as an option,
      * assume it means -1.
      */
-    if (optopt == (int) '-')
+    if (optopt == (int) '-') {
       return (-1);
-    if (!*place)
+    }
+    if (!*place) {
       ++optind;
-    if (opterr && *ostr != ':' && optopt != BADCH)
-      (void)fprintf(stderr, "%s: illegal option -- %c\n",
-          "progname", optopt);
+    }
+    if (opterr && *ostr != ':' && optopt != BADCH) {
+      fprintf(stderr, "%s: illegal option -- %c\n", "progname", optopt);
+    }
     return (BADCH);
   }
   if (*++oli != ':') {  /* don't need argument */
     optarg = NULL;
-    if (!*place)
+    if (!*place) {
       ++optind;
-  }
-  else {  /* need an argument */
-    if (*place)  /* no white space */
-      optarg = place;
-    else if (nargc <= ++optind) {  /* no arg */
-      place = EMSG;
-      if (*ostr == ':')
-        return (BADARG);
-      if (opterr)
-        (void)fprintf(stderr,
-            "%s: option requires an argument -- %c\n",
-            "progname", optopt);
-      return (BADCH);
     }
-    else  /* white space */
+  } else {  /* need an argument */
+    if (*place) {  /* no white space */
+      optarg = place;
+    } else if (nargc <= ++optind) {  /* no arg */
+      place = EMSG;
+      if (*ostr == ':') {
+        return (BADARG);
+      }
+      if (opterr) {
+        fprintf(stderr, "%s: option requires an argument -- %c\n", "progname", optopt);
+      }
+      return (BADCH);
+    } else {  /* white space */
       optarg = nargv[optind];
+    }
     place = EMSG;
     ++optind;
   }
