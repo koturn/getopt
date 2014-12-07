@@ -101,11 +101,11 @@ __END_DECLS
 /* These are global getopt variables */
 __BEGIN_DECLS
 
-GETOPT_API extern int   opterr,   /* if error message should be printed */
-                        optind,   /* index into parent argv vector */
-                        optopt,   /* character checked for validity */
-                        optreset; /* reset getopt */
-GETOPT_API extern char *optarg;   /* argument associated with option */
+GETOPT_API extern int   opterr;    /* if error message should be printed */
+GETOPT_API extern int   optind;    /* index into parent argv vector */
+GETOPT_API extern int   optopt;    /* character checked for validity */
+GETOPT_API extern int   optreset;  /* reset getopt */
+GETOPT_API extern char *optarg;    /* argument associated with option */
 
 /* Original getopt */
 GETOPT_API int

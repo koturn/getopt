@@ -161,9 +161,7 @@ gcd(
     int a,
     int b)
 {
-  int c;
-
-  c = a % b;
+  int c = a % b;
   while (c != 0) {
     a = b;
     b = c;
@@ -184,11 +182,9 @@ permute_args(
     int opt_end,
     char *const *nargv)
 {
-  int cstart, cyclelen, i, j, ncycle, nnonopts, nopts, pos;
-  char *swap;
+  int cyclelen, i, j, ncycle, nnonopts, nopts;
 
   _DIAGASSERT(nargv != NULL);
-
   /*
    * compute lengths of blocks and number and size of cycles
    */
@@ -198,8 +194,9 @@ permute_args(
   cyclelen = (opt_end - panonopt_start) / ncycle;
 
   for (i = 0; i < ncycle; i++) {
-    cstart = panonopt_end+i;
-    pos = cstart;
+    int cstart = panonopt_end+i;
+    int pos = cstart;
+    char *swap;
     for (j = 0; j < cyclelen; j++) {
       if (pos >= panonopt_end) {
         pos -= nnonopts;
