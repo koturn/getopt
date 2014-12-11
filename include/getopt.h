@@ -40,22 +40,6 @@
 #ifndef _GETOPT_H_
 #define _GETOPT_H_
 
-#ifdef _WIN32
-/* from <sys/cdefs.h> */
-# ifdef  __cplusplus
-#  define __BEGIN_DECLS  extern "C" {
-#  define __END_DECLS    }
-# else
-#  define __BEGIN_DECLS
-#  define __END_DECLS
-# endif
-#endif
-
-/*#ifndef _WIN32
-#include <sys/cdefs.h>
-#include <unistd.h>
-#endif*/
-
 /*
  * #ifdef _WIN32
  * # if !defined(GETOPT_API)
@@ -87,7 +71,10 @@ struct option {
   int val;
 };
 
-__BEGIN_DECLS
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 GETOPT_API int
 getopt_long(
     int nargc,
@@ -95,12 +82,15 @@ getopt_long(
     const char *options,
     const struct option *long_options,
     int *idx);
-__END_DECLS
+#ifdef __cplusplus
+}
+#endif
 #endif
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 /* These are global getopt variables */
-__BEGIN_DECLS
-
 GETOPT_API extern int   opterr;    /* if error message should be printed */
 GETOPT_API extern int   optind;    /* index into parent argv vector */
 GETOPT_API extern int   optopt;    /* character checked for validity */
@@ -113,7 +103,8 @@ getopt(
     int nargc,
     char *const *nargv,
     const char *ostr);
-
-__END_DECLS
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* !_GETOPT_H_ */
