@@ -42,9 +42,9 @@ int   optopt;      /* character checked for validity */
 int   optreset;    /* reset getopt */
 char *optarg;      /* argument associated with option */
 
-#define BADCH  (int) '?'
-#define BADARG (int) ':'
-#define EMSG   ""
+#define BADCH   ((int) '?')
+#define BADARG  ((int) ':')
+#define EMSG    ("")
 
 /*
  * getopt --

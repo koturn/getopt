@@ -113,12 +113,12 @@ __weak_alias(getopt_long, _getopt_long)
 #define IN_ORDER  (!IS_POSIXLY_CORRECT && *options == '-')
 
 /* return values */
-#define BADCH  (int) '?'
+#define BADCH  ((int) '?')
 #define BADARG  ((IGNORE_FIRST && options[1] == ':') \
     || (*options == ':') ? (int) ':' : (int) '?')
-#define INORDER (int) 1
+#define INORDER  ((int) 1)
 
-#define EMSG  ""
+#define EMSG  ("")
 
 static int
 getopt_internal(
