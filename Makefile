@@ -31,7 +31,7 @@ OBJ1    := $(SRC_DIR)/getopt.o
 OBJ2    := $(SRC_DIR)/getopt_long.o
 SRC1    := $(OBJ:%.o=%.c)
 SRC2    := $(OBJ:%.o=%.c)
-HAEDER  := $(INC_DIR)/getopt.h
+HEADER  := $(INC_DIR)/getopt.h
 
 
 .PHONY: all
