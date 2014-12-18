@@ -2,7 +2,7 @@ CC = cl
 AR = lib
 RM = del /F
 
-MACROS  = /D_CRT_SECURE_NO_WARNINGS /D_SECURE_SCL=0
+MACROS  = /D_CRT_SECURE_NO_WARNINGS /DNDEBUG
 CFLAGS  = /nologo /c /O2 /W4 $(MACROS)
 LDFLAGS = /nologo /O2
 ARFLAGS = /nologo
