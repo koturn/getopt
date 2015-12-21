@@ -118,7 +118,6 @@ __weak_alias(getopt_long, _getopt_long)
     || (*options == ':') ? (int) ':' : (int) '?')
 #define INORDER  ((int) 1)
 
-#define EMSG  ("")
 
 static int
 getopt_internal(
@@ -138,6 +137,8 @@ permute_args(
     int opt_end,
     char *const *nargv);
 
+
+static char EMSG[] = "";
 static char *place = EMSG; /* option letter processing */
 
 /* XXX: set optreset to 1 rather than these two */
@@ -145,12 +146,12 @@ static int nonopt_start = -1; /* first non option argument (for permute) */
 static int nonopt_end = -1;   /* first option after non options (for permute) */
 
 /* Error messages */
-static const char recargchar[] = "option requires an argument -- %c";
-static const char recargstring[] = "option requires an argument -- %s";
-static const char ambig[] = "ambiguous option -- %.*s";
-static const char noarg[] = "option doesn't take an argument -- %.*s";
-static const char illoptchar[] = "unknown option -- %c";
-static const char illoptstring[] = "unknown option -- %s";
+static const char RECARGCHAR[] = "option requires an argument -- %c";
+static const char RECARGSTRING[] = "option requires an argument -- %s";
+static const char AMBIG[] = "ambiguous option -- %.*s";
+static const char NOARG[] = "option doesn't take an argument -- %.*s";
+static const char ILLOPTCHAR[] = "unknown option -- %c";
+static const char ILLOPTSTRING[] = "unknown option -- %s";
 
 
 /*
@@ -305,9 +306,9 @@ start:
       ++optind;
     }
 #ifndef _WIN32
-    if (PRINT_ERROR) warnx(illoptchar, optchar);
+    if (PRINT_ERROR) warnx(ILLOPTCHAR, optchar);
 #else
-    warnx(PRINT_ERROR, illoptchar, optchar);
+    warnx(PRINT_ERROR, ILLOPTCHAR, optchar);
 #endif
     optopt = optchar;
     return BADCH;
@@ -320,9 +321,9 @@ start:
     if (++optind >= nargc) {  /* no arg */
       place = EMSG;
 #ifndef _WIN32
-      if (PRINT_ERROR) warnx(recargchar, optchar);
+      if (PRINT_ERROR) warnx(RECARGCHAR, optchar);
 #else
-      warnx(PRINT_ERROR, recargchar, optchar);
+      warnx(PRINT_ERROR, RECARGCHAR, optchar);
 #endif
       optopt = optchar;
       return BADARG;
@@ -348,9 +349,9 @@ start:
       if (++optind >= nargc) {  /* no arg */
         place = EMSG;
 #ifndef _WIN32
-        if (PRINT_ERROR) warnx(recargchar, optchar);
+        if (PRINT_ERROR) warnx(RECARGCHAR, optchar);
 #else
-        warnx(PRINT_ERROR, recargchar, optchar);
+        warnx(PRINT_ERROR, RECARGCHAR, optchar);
 #endif
         optopt = optchar;
         return BADARG;
@@ -465,9 +466,9 @@ getopt_long(
       } else {
         /* ambiguous abbreviation */
 #ifndef _WIN32
-        if (PRINT_ERROR) warnx(ambig, (int) current_argv_len, current_argv);
+        if (PRINT_ERROR) warnx(AMBIG, (int) current_argv_len, current_argv);
 #else
-        warnx(PRINT_ERROR, ambig, (int) current_argv_len, current_argv);
+        warnx(PRINT_ERROR, AMBIG, (int) current_argv_len, current_argv);
 #endif
         optopt = 0;
         return BADCH;
@@ -476,9 +477,9 @@ getopt_long(
     if (match != -1) {  /* option found */
       if (long_options[match].has_arg == no_argument && has_equal) {
 #ifndef _WIN32
-        if (PRINT_ERROR) warnx(noarg, (int) current_argv_len, current_argv);
+        if (PRINT_ERROR) warnx(NOARG, (int) current_argv_len, current_argv);
 #else
-        warnx(PRINT_ERROR, noarg, (int) current_argv_len, current_argv);
+        warnx(PRINT_ERROR, NOARG, (int) current_argv_len, current_argv);
 #endif
         /*
          * XXX: GNU sets optopt to val regardless of
@@ -510,9 +511,9 @@ getopt_long(
          * indicates no error should be generated
          */
 #ifndef _WIN32
-        if (PRINT_ERROR) warnx(recargstring, current_argv);
+        if (PRINT_ERROR) warnx(RECARGSTRING, current_argv);
 #else
-        warnx(PRINT_ERROR, recargstring, current_argv);
+        warnx(PRINT_ERROR, RECARGSTRING, current_argv);
 #endif
         /*
          * XXX: GNU sets optopt to val regardless
@@ -528,9 +529,9 @@ getopt_long(
       }
     } else {  /* unknown option */
 #ifndef _WIN32
-      if (PRINT_ERROR) warnx(illoptstring, current_argv);
+      if (PRINT_ERROR) warnx(ILLOPTSTRING, current_argv);
 #else
-      warnx(PRINT_ERROR, illoptstring, current_argv);
+      warnx(PRINT_ERROR, ILLOPTSTRING, current_argv);
 #endif
       optopt = 0;
       return BADCH;
